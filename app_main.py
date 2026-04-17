@@ -1,6 +1,6 @@
-import csv
-import pandas as pd
+
 import os 
+from Gestion_ventas import ingresar_ventas
 
 def limpiar_pantalla():
 
