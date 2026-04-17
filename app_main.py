@@ -21,7 +21,7 @@ def menu():
         
         opcion = input("Seleccione una opción: ")
         if opcion == "1":
-            pass
+            ingresar_ventas()
         elif opcion == "2":
             pass
         elif opcion == "3":
