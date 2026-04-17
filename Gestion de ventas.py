@@ -3,6 +3,7 @@ from datetime import date
 def ingresar_ventas():
     """Función para ingresar nuevas ventas y guardar los datos en un archivo CSV."""
     Ventas = []
+    IVA = 0.13  # Tasa de IVA del 13%
     fecha = ""
     cliente = ""
     while True:
@@ -35,27 +36,28 @@ def ingresar_ventas():
         }
         
         Ventas.append(venta)
-        continuar = input("Desea ingresar otra venta? (Si/No): ").lower()
-        if continuar != "Si":
+        continuar = input("Desea ingresar otra venta? (n/n): ").lower()
+        if continuar != "s":
             print("Guardando en ventas.csv...")
             
             print("\n-- Ticket de Venta --")
+            print(f"Cliente: {Ventas[0]['Cliente']} | Fecha: {Ventas[0]['Fecha']} ")
             for venta in Ventas:
-                print(f"Producto: {venta['Producto']}")
-                print(f"Cantidad: {venta['Cantidad']}")
-                print(f"Precio: ${venta['Precio']:.2f}")
-                print(f"Fecha: {venta['Fecha']}")
-                print(f"Cliente: {venta['Cliente']}")
+                # Imprime los detalles de cada venta ingresada en un sola linea con formato de ticket
                 print("-" * 30)
-
-
-            print("""Subtotal: ${:.2f}""".format(sum(v["Cantidad"] * v["Precio"] for v in Ventas)))
-            print("""IVA (13%): ${:.2f}""".format(sum(v["Cantidad"] * v["Precio"] for v in Ventas) * IVA))
-            print(
-                "Total a pagar: ${:.2f}".format(
-                    sum(v["Cantidad"] * v["Precio"] for v in Ventas)
+                print(
+                    f"Producto: {venta['Producto']} | Cantidad: {venta['Cantidad']} | Precio: ₡{venta['Precio']:.2f}"
                 )
-            )
+
+            subtotal = sum(
+                v["Cantidad"] * v["Precio"] for v in Ventas
+            )  # Calcula el subtotal sumando el precio total de cada venta (cantidad * precio)
+            iva = (
+                subtotal * IVA
+            )  # Calcula el IVA multiplicando el subtotal por la tasa de IVA (13%)
+            print("""Subtotal: ₡{:.2f}""".format(subtotal))
+            print("""IVA (13%): ₡{:.2f}""".format(iva))
+            print("Total a pagar: ₡{:.2f}".format(subtotal + iva))
             break
 
 if __name__ == "__main__":
