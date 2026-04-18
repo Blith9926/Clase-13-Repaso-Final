@@ -45,43 +45,43 @@ def ingresar_ventas():
                 break
         
         
-        print("\n-- Ticket de Venta --")
-        print(f"Cliente: {Ventas[0]['Cliente']} | Fecha: {Ventas[0]['Fecha']} ")
-        for venta in Ventas:
-            # Imprime los detalles de cada venta ingresada en un sola linea con formato de ticket
-            print("-" * 30)
-            print(f"Producto: {venta['Producto']} | Cantidad: {venta['Cantidad']} | Precio: ₡{venta['Precio']:.2f}")
+            print("\n-- Ticket de Venta --")
+            print(f"Cliente: {Ventas[0]['Cliente']} | Fecha: {Ventas[0]['Fecha']} ")
+            for venta in Ventas:
+                # Imprime los detalles de cada venta ingresada en un sola linea con formato de ticket
+                print("-" * 30)
+                print(f"Producto: {venta['Producto']} | Cantidad: {venta['Cantidad']} | Precio: ₡{venta['Precio']:.2f}")
 
-        subtotal = sum(
-            v["Cantidad"] * v["Precio"] for v in Ventas
-        )  # Calcula el subtotal sumando el precio total de cada venta (cantidad * precio)
-        iva = (
-               subtotal * IVA
-        )  # Calcula el IVA multiplicando el subtotal por la tasa de IVA (13%)
-        print("""Subtotal: ₡{:.2f}""".format(subtotal))
-        print("""IVA (13%): ₡{:.2f}""".format(iva))
-        print("Total a pagar: ₡{:.2f}".format(subtotal + iva))
-        break
+            subtotal = sum(
+                v["Cantidad"] * v["Precio"] for v in Ventas
+            )  # Calcula el subtotal sumando el precio total de cada venta (cantidad * precio)
+            iva = (
+                subtotal * IVA
+            )  # Calcula el IVA multiplicando el subtotal por la tasa de IVA (13%)
+            print("""Subtotal: ₡{:.2f}""".format(subtotal))
+            print("""IVA (13%): ₡{:.2f}""".format(iva))
+            print("Total a pagar: ₡{:.2f}".format(subtotal + iva))
+            break
 
 def guardar_ventas_csv(Ventas):
     
     
     """Funcion para guardar las ventas en CSV."""
-    ARCHIVO_CSV = "Ventas.CSV"
+    ARCHIVO_CSV = "Ventas.csv"
     if not (Ventas):
         print("No hay ninguna venta.")
         return False
     try:
         #Abrir  el archivo CSV en modo escritura y guardar las ventas utilizando csv.DictWriter
         with open(ARCHIVO_CSV, mode="a", newline="", encoding="utf-8") as archivo:
-            campos = ["Producto", "Cantidad", " Precio", "Fecha", "Cliente"]
+            campos = ["Producto", "Cantidad", "Precio", "Fecha", "Cliente"]
             writer = csv.DictWriter(archivo, fieldnames=campos)
             if archivo.tell() == 0:  # Si el archivo está vacío, escribir la cabecera
                 writer.writeheader()
             for venta in Ventas:
                 writer.writerow(venta)
-                print(f"Ventas guardadas exitosamente en {ARCHIVO_CSV}")
-                return True
+            print(f"Ventas guardadas exitosamente en {ARCHIVO_CSV}")
+            return True
 
         
         

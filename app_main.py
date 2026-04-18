@@ -1,6 +1,7 @@
 
 import os 
 from Gestion_ventas import ingresar_ventas
+from analisi_ventas import analizar_ventas
 
 def limpiar_pantalla():
 
@@ -23,7 +24,7 @@ def menu():
         if opcion == "1":
             ingresar_ventas()
         elif opcion == "2":
-            pass
+            analizar_ventas()
         elif opcion == "3":
             print("¡Gracias por usar el sistema de gestión de ventas! ¡Hasta luego! 👋")
             break
@@ -36,4 +37,4 @@ def menu():
 
 if __name__ == "__main__":
     print("Bienvenido al sistema de gestion de ventas artesanales!")
-menu()
+    menu()
